@@ -2,17 +2,21 @@ import {Component} from 'react'
 import './index.css'
 
 class RestoItem extends Component {
-  state = {count: 0}
+  state = {count: '0'}
 
   decrease = () => {
     const {count} = this.state
-    if (count > 0) {
-      this.setState(pre => ({count: pre.count - 1}))
+    const {cartDe} = this.props
+    cartDe()
+    if (parseInt(count) > 0) {
+      this.setState(pre => ({count: parseInt(pre.count) - 1}))
     }
   }
 
   increase = () => {
-    this.setState(pre => ({count: pre.count + 1}))
+    const {cartIn} = this.props
+    cartIn()
+    this.setState(pre => ({count: parseInt(pre.count) + 1}))
   }
 
   render() {

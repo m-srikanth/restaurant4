@@ -18,10 +18,22 @@ class Restaurant extends Component {
     typeItemsList: [],
     apiStatus: Constants.initiate,
     restaurantName: '',
+    cartCount: 0,
   }
 
   componentDidMount() {
     this.getData()
+  }
+
+  cartIn = () => {
+    this.setState(pre => ({cartCount: pre.cartCount + 1}))
+  }
+
+  cartDe = () => {
+    const {cartCount} = this.state
+    if (cartCount > 0) {
+      this.setState(pre => ({cartCount: pre.cartCount - 1}))
+    }
   }
 
   typeId = id => {
@@ -63,7 +75,12 @@ class Restaurant extends Component {
     return (
       <ul className="ul2">
         {typeItemsList.map(i => (
-          <RestoItem each={i} key={i.dish_id} />
+          <RestoItem
+            each={i}
+            key={i.dish_id}
+            cartIn={this.cartIn}
+            cartDe={this.cartDe}
+          />
         ))}
       </ul>
     )
@@ -83,7 +100,7 @@ class Restaurant extends Component {
   }
 
   render() {
-    const {typeList, typeIndex, restaurantName} = this.state
+    const {typeList, typeIndex, restaurantName, cartCount} = this.state
 
     return (
       <div>
@@ -92,6 +109,7 @@ class Restaurant extends Component {
           <div className="div3">
             <h1>My Orders</h1>
             <AiOutlineShoppingCart size="50" />
+            <p>{cartCount}</p>
           </div>
         </div>
         <ul className="ul1">
